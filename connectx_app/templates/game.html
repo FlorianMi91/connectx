@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %} 
+
+{% endblock  %} 
+
+{% block content %} 
+<h1> Let's play a game </h1>
+<div class="entete">
+    <table cellpadding="0" cellspacing="0" border="0">
+        <thead>       
+            <td> 
+                <a href="{{ url_for('game',move=0) }}"> <div class="disc_jaune"></div> </a>
+            </td>
+            <td> 
+                <a href="{{ url_for('game',move=1) }}"> <div class="disc_jaune"></div> </a>
+            </td>
+            <td> 
+                <a href="{{ url_for('game',move=2) }}"> <div class="disc_jaune"></div> </a>
+            </td>
+            <td> 
+                <a href="{{ url_for('game',move=3) }}"> <div class="disc_jaune"></div> </a>
+            </td>
+            <td> 
+                <a href="{{ url_for('game',move=4) }}"> <div class="disc_jaune"></div> </a>
+            </td>
+            <td> 
+                <a href="{{ url_for('game',move=5) }}"> <div class="disc_jaune"></div> </a>
+            </td>
+            <td> 
+                <a href="{{ url_for('game',move=6) }}"> <div class="disc_jaune"></div> </a>
+            </td>
+
+          </thead>
+    </table>
+</div> 
+
+<div class="board">
+    <div class="field">
+
+    <div class="grid">
+    <table cellpadding="0" cellspacing="0" border="0">
+
+    
+          {% for i in range(0,6,1) %}
+          
+            <tr>
+            {% for col in board[0+7*i:7+7*i] %}
+                
+                <th > 
+                    {% if col==0 %}
+                    <div class="disc_blanc"></div>
+                    {%endif%}
+                    {% if col==2 %}
+                    <div class="disc_rouge"></div>
+                    {%endif%}
+                    {% if col==1 %}
+                    <div class="disc_jaune"></div>
+                    {%endif%}
+                 </th>
+                
+            {% endfor %}
+            </tr>
+            {% endfor %} 
+      
+    </table>
+</div>
+</div>
+    <div class="front"></div>
+  </div>
+{% endblock  %} 

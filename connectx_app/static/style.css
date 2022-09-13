@@ -1,0 +1,92 @@
+form {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+
+}
+.board {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    
+}
+.entete{
+    left: 15px;
+    
+}
+  
+.field {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    padding: 75px 0 0 0;
+    box-sizing: border-box;
+    width: 420px;
+    height: 435px;
+    overflow: hidden;
+    cursor: not-allowed;
+}
+  
+.grid {
+    display: inline-flex;
+    flex-flow: column wrap;
+    position: relative;
+    min-width: 420px;
+    height: 360px;
+}
+.front {
+    position: absolute;
+    top: 60px;
+    border: 15px solid #007fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 450px;
+    height: 390px;
+    pointer-events: none;
+    background: radial-gradient(circle, transparent, transparent 18px, #007fff 20px, #007fff 23px, #1f90ff 23px, #1f90ff 36px, #007fff) center top/60px 60px;
+}
+
+
+/* Disc */
+.disc_rouge {
+    position: relative;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    color: #880808;
+    background: radial-gradient(circle, currentcolor 12px, #666 13px, currentcolor 14px, currentcolor 21px, #666 22px, transparent 23px, transparent) center/60px;
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.2s, top 0s 0.2s, color 0s 0.2s;
+}
+.disc_jaune{
+    position: relative;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    color: #FFFF00;
+    background: radial-gradient(circle, currentcolor 12px, #666 13px, currentcolor 14px, currentcolor 21px, #666 22px, transparent 23px, transparent) center/60px;
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.2s, top 0s 0.2s, color 0s 0.2s;
+}
+.disc_blanc{
+    position: relative;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    color: #FFF;
+    background: radial-gradient(circle, currentcolor 12px, #666 13px, currentcolor 14px, currentcolor 21px, #666 22px, transparent 23px, transparent) center/60px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, top 0s 0.2s, color 0s 0.2s;
+}
+.column {
+    display: inline-flex;
+    flex-flow: column wrap;
+    height: 360px;
+}
