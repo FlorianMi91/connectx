@@ -1,5 +1,5 @@
-from more_itertools import last
-
+import numpy as np
+import random
 
 def check_valid_move(board,move):
     '''
