@@ -6,6 +6,7 @@ from .agent_minmax import my_agent_binary_negmax
 
 class options(FlaskForm):
     """[Form to choose options of the game]
+    
     """
 
     adversaire = SelectField(label="Adversaire", choices=[('random', 'random'),( "MinMax","MinMax")])
