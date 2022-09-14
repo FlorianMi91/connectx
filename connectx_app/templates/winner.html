@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} 
+Winner page
+{% endblock  %} 
+
+{% block content %} 
+<h1> Player {{winner}} win !</h1>
+
+
+<br>
+<div class="center">
+    <a href="{{url_for('chose_options')}}" class="btn btn-primary">Play again</a>
+</div>
+{% endblock  %} 
