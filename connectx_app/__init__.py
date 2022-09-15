@@ -24,15 +24,15 @@ from flask_login import LoginManager
 app = Flask(__name__)
 
 
-app.config["SECRET_KEY"] = "very secret"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///..//connectx.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["WTF_CSRF_SECRET_KEY"] = "very secret"
-
-# app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-# app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+# app.config["SECRET_KEY"] = "very secret"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///..//connectx.db"
 # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# app.config["WTF_CSRF_SECRET_KEY"] = os.getenv("WTF_CSRF_SECRET_KEY")
+# app.config["WTF_CSRF_SECRET_KEY"] = "very secret"
+
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["WTF_CSRF_SECRET_KEY"] = os.getenv("WTF_CSRF_SECRET_KEY")
 
 db = SQLAlchemy(app)
 
