@@ -4,6 +4,7 @@ from kaggle_environments import make, evaluate
 from .form import options
 from .utils import check_valid_move, winner
 from .agent_minmax import my_agent_binary_negmax, check_winner
+from .agent_ppo2 import agent_theo
 
 # Create the game environment
 env = make("connectx", debug=True)
@@ -18,7 +19,7 @@ def home():
 @app.route("/options",methods=['GET', 'POST'])
 def chose_options():
     # les options :
-    dico_options = {"random":"random","MinMax":my_agent_binary_negmax}
+    dico_options = {"random":"random","MinMax":my_agent_binary_negmax, "PPO2": agent_theo}
     #choisir les options de la partie
     form = options()
     if form.validate_on_submit():

@@ -9,7 +9,7 @@ class options(FlaskForm):
     
     """
 
-    adversaire = SelectField(label="Adversaire", choices=[('random', 'random'),( "MinMax","MinMax")])
+    adversaire = SelectField(label="Adversaire", choices=[('random', 'random'),( "MinMax","MinMax"),("PPO2","PPO2")])
    
     submit = SubmitField(label="Valider")
 
