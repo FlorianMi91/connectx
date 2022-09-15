@@ -13,3 +13,8 @@ gunicorn
 requests
 
 kaggle-environments>=0.1.6
+
+stable-baselines
+tensorflow==1.15
+protobuf==3.20.0
+gym==0.20
