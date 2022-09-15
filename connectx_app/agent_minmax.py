@@ -1,5 +1,10 @@
+
+
 import numpy as np
-import random #6.35
+import random
+
+
+  
 class saved_hash():
   def __init__(self,flag,value):
     self.flag = flag
@@ -17,74 +22,9 @@ def ordering_moves(valid_moves,position,mask):
   final_valid_moves.sort(reverse=True)
   return [move[1] for move in final_valid_moves]
 
-def pvs(position, mask, depth, color, alpha, beta):
-  alpha_original = alpha
-  ordered = [3,2,4,1,5,0,6]
-  is_terminal = bool(check_four_aligned(position) + check_four_aligned(position ^ mask))
-  valid_moves = [i for i in ordered if not (mask >> (i*7+5)) & 1]
-  #hash_position = hash((position,mask,position ^ mask))
 
-  # if hash_position in seen:
-  #   stored = seen[hash_position]
-  #   if stored.flag == 'EXACT':
-  #     return seen[hash_position].value
-  #   elif stored.flag == 'LOWERB':
-  #     alpha = max(alpha, stored.value)
-  #   elif stored.flag == 'UpperBB':
-  #     beta = min(beta, stored.value)
-    
-  #   if alpha >= beta:
-  #     return stored.value
-    
-  if depth == 0 or is_terminal:
-      return color * get_euristic(position, mask, depth) 
-  #value = -np.Inf
-  for col in valid_moves:
-    if color == -1:
-      child_position, child_mask = make_move(position ^ mask, mask, col)
-      child_position = child_position ^ child_mask
-    else:
-      child_position, child_mask = make_move(position, mask, col)
 
-    if col == valid_moves[0]:
-      value = -pvs(child_position, child_mask, depth-1, -color, -beta, -alpha)
-    else:
-      value = -pvs(child_position, child_mask, depth-1, -color, -alpha - 1, -alpha)
-      if alpha < value < beta:
-        value = -pvs(child_position, child_mask, depth-1, -color, -beta, -value)
-    alpha = max(alpha, value)
 
-    if alpha >= beta:
-      break
-  
-
-  # if value <= alpha_original:
-  #   flag = 'UPPERB'
-  # elif value >= beta:
-  #   flag = 'LowerB'
-  # else:
-  #   flag = 'EXACT'
-
-  # seen[hash_position] = saved_hash(flag,value)
-  return alpha
-
-def negmax(position, mask, depth, color):
-  ordered = [3,2,4,1,5,0,6]
-  is_terminal = bool(check_four_aligned(position) + check_four_aligned(position ^ mask))
-  valid_moves = [i for i in ordered if not (mask >> (i*7+5)) & 1]
-  
-  if depth == 0 or is_terminal:
-      return color * get_euristic(position, mask, depth) 
-  value = -np.Inf
-  for col in valid_moves:
-    if color == -1:
-      child_position, child_mask = make_move(position ^ mask, mask, col)
-      child_position = child_position ^ child_mask
-    else:
-      child_position, child_mask = make_move(position, mask, col)
-
-    value = max(value, -negmax(child_position, child_mask, depth-1, -color)) 
-  return value
 
 def negmax_pruning(position, mask, depth, color, alpha, beta):
   alpha_original = alpha
@@ -117,9 +57,9 @@ def negmax_pruning(position, mask, depth, color, alpha, beta):
 
     value = max(value, -negmax_pruning(child_position, child_mask, depth-1, -color, -beta, -alpha)) 
     alpha = max(alpha,value)
-    if alpha >= beta or alpha > 90000000:
+    if alpha >= beta:# or alpha > 90000000:
       break
-  
+    
 
   if value <= alpha_original:
     flag = 'UPPERB'
@@ -138,12 +78,7 @@ def make_move(position, mask, col):
   new_position = new_oppo ^ new_mask
   return new_position, new_mask
 
-def score_move(grid,mask, col, depth):
-  
-  new_position, new_mask = make_move(grid, mask, col)
-  score = minimax(new_position, new_mask, depth, False, -np.Inf, np.Inf )
-  #score = get_euristic(new_position, new_mask)
-  return score
+
 
 def score_move_negmax(grid,mask, col, depth):
   
@@ -152,12 +87,7 @@ def score_move_negmax(grid,mask, col, depth):
   #score = get_euristic(new_position, new_mask)
   return score
 
-def score_move_pvs(grid,mask, col, depth):
-  
-  new_position, new_mask = make_move(grid, mask, col)
-  score = -pvs(new_position, new_mask, depth, False, -np.Inf, np.Inf )
-  #score = get_euristic(new_position, new_mask)
-  return score
+
 
 
 #check the alignement of 3 dangerous consecutive peeble in one direction
@@ -218,40 +148,6 @@ def connected_three(position,oppo, check_oppo = True):
 
   return count_set_bits(check)
 
-#check the alignement of 3 dangerous consecutive peeble in one direction
-def Check_2_alligned(position, oppo, code):
-  #horizontal check : code = nb line + 1
-  #vertical check : code = 1
-  #diagonal / check : code = nb line + 2
-  #diagonal \ check : code = nb line
-  number_of_two = [0, 0]
-  check1 = position & (position >> code)
-  check1 = check1 >> code
-  comparator = check1 & oppo
-  check1 = check1 - comparator
-  count_set_bits(check1)
-  
-  check2 = position & (position << code)
-  check2 = check2 << code
-  comparator = check2 & oppo
-  check2 = check2 - comparator
-  return check2 | check1
-
-#check the alignement of 2 dangerous consecutive peeble in all directions for all player
-def connected_two(position,oppo):
-  
-
-  check = Check_2_alligned(position, oppo, 7)
-  check = check | Check_2_alligned(position, oppo, 1)
-  check = check | Check_2_alligned(position, oppo, 6)
-  check = check | Check_2_alligned(position, oppo, 8)
-
-  check_oppo = Check_2_alligned(oppo, position, 7)
-  check_oppo = check_oppo | Check_2_alligned(oppo, position, 1)
-  check_oppo = check_oppo | Check_2_alligned(oppo, position, 6)
-  check_oppo = check_oppo | Check_2_alligned(oppo, position, 8)
-
-  return [count_set_bits(check),count_set_bits(check_oppo)]
 
 def check_four_aligned(position):
   # Horizontal check
@@ -276,7 +172,6 @@ def check_four_aligned(position):
 def get_euristic(position, mask, depth):
   oppo = position ^ mask
   number_of_3 = connected_three(position,oppo)
-  number_of_2 = connected_two(position,oppo)
   number_of_4 = [check_four_aligned(position),check_four_aligned(oppo)]
   euristic = number_of_3[0] * 100 - number_of_3[1] * 100 + (number_of_4[0] * 100000000 * (depth +1)) - (number_of_4[1] * 100000000 * (depth +1))
   #return number_of_2
@@ -331,51 +226,21 @@ def get_position_mask_bitmap(board, player):
           position += ['0', '1'][board[i, j] == player]
   return int(position, 2), int(mask, 2)
   #return position, mask
-
-def minimax_hash(position, mask, depth, maximizingPlayer, alpha, beta):
-  ordered = [3,2,4,1,5,0,6]
-  is_terminal = bool(check_four_aligned(position) + check_four_aligned(position ^ mask))
-  valid_moves = [i for i in ordered if not (mask >> (i*7+5)) & 1]
   
-  if depth == 0 or is_terminal:
-      return get_euristic(position, mask, depth) 
-
-  if maximizingPlayer:
-      valid_moves = ordering_moves(valid_moves,position,mask)
-      value = -np.Inf
-      for col in valid_moves:
-          child_position, child_mask = make_move(position, mask, col)
-          hash_position = hash((child_position,child_mask,child_position ^ child_mask))
-          if hash_position in seen:
-            value = seen[hash_position]
-          else:
-            value = max(value, minimax_hash(child_position, child_mask, depth-1, False, alpha, beta))
-            seen[hash_position] = value
-          alpha = max(alpha, value)
-          if value >= beta:
-            break
-      return value
-  else:
-      valid_moves = ordering_moves(valid_moves,position ^ mask,mask)
-      value = np.Inf
-      for col in valid_moves:
-          child_position, child_mask = make_move(position ^ mask, mask, col)
-          child_position = child_position ^ child_mask
-          hash_position = hash((child_position,child_mask,child_position ^ child_mask))
-
-          if hash_position in seen:
-            value = seen[hash_position]
-          else:
-            value = min(value, minimax_hash(child_position, child_mask, depth-1, True, alpha, beta))
-            seen[hash_position] = value
-          beta = min(beta, value)
-          if value <= alpha:
-            break
-      return value
-
-
-
-def my_agent_binary_negmax(obs, config, test = False, depth= 6, player = 1): #20 = 10.58
+  
+  
+  
+  
+  
+  
+  
+  
+  
+def my_agent_binary_negmax(obs, config, test = False, depth= 8, player = 1): #20 = 10.58
+  
+  
+  
+  
   ordered = [3,2,4,1,5,0,6]
   global seen
   seen = {}
@@ -414,4 +279,3 @@ def check_winner(board):
   grid = np.asarray(board).reshape(6, 7)
   position, mask = get_position_mask_bitmap(grid,1)
   return check_four_aligned(position), check_four_aligned(position ^ mask)
-  

@@ -13,9 +13,9 @@ class options(FlaskForm):
    
     submit = SubmitField(label="Valider")
 
-class Login(FlaskForm):
-    """[Form to login]
+class LoginForm(FlaskForm):
+    """Form to login to the app
     """
-    pseudo = StringField(label="pseudo: ", validators = [DataRequired()])
-    password = PasswordField(label="Mot de passe:", validators = [DataRequired()])
-    submit = SubmitField(label="Se connecter")
+    pseudo = StringField(label="pseudo", validators=[DataRequired()])
+    password = PasswordField(label="password", validators=[DataRequired()])
+    submit = SubmitField(label="Log in")
