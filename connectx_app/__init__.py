@@ -3,7 +3,7 @@ import os
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-
+from dotenv import load_dotenv
 
 # import sentry_sdk
 # from flask import Flask
@@ -28,7 +28,7 @@ app = Flask(__name__)
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///..//connectx.db"
 # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # app.config["WTF_CSRF_SECRET_KEY"] = "very secret"
-
+load_dotenv()
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
