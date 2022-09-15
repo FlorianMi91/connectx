@@ -7,10 +7,15 @@ ConnectX home page
 {% block content %} 
 <h1> ConnectX </h1>
 
-<br>
-<p> Log in </p>
-<br>
-<a href="{{url_for('chose_options')}}" class="btn btn-primary">Jouer une partie</a>
-
-{% endblock  %} 
+<div class="center">
+    <br>
+    <a href="{{url_for('login')}}" class="btn btn-primary">Log in</a>
+    <br>
+    <a href="{{url_for('logout')}}" class="btn btn-primary">Log out</a>
+    <br>
+    <a href="{{url_for('newuser')}}" class="btn btn-primary">Create user</a>
+    <br>
+    <a href="{{url_for('chose_options')}}" class="btn btn-primary">Jouer une partie</a>
+</div>
+{% endblock  %}
 

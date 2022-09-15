@@ -1,2 +1,4 @@
 .env
 /connectx_app/__pycache__
+connectx.db
+test.py
