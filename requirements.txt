@@ -36,6 +36,7 @@ kaggle-environments==0.1.6
 MarkupSafe==2.0.1
 matplotlib-inline==0.1.3
 more-itertools==8.12.0
+nest-asyncio==1.5.4
 numpy==1.22.1
 pandas==1.4.0
 parso==0.8.3
