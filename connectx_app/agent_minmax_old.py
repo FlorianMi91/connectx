@@ -235,7 +235,7 @@ def my_agent_binary_negmax(obs, config, test = False, depth= 6, player = 1):
   max_cols = [key for key in scores.keys() if scores[key] == max(scores.values())]
   # Select at random from the maximizing columns
   #return scores
-  if not mask or mask == 2097152:
+  if not mask:
     return 3
   if test :
     return scores
