@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import check_password_hash
-from connectx_app import  app
+from connectx_app import  app, submission
 from kaggle_environments import make
 from .form import options, LoginForm
 from .utils import check_valid_move, set_trainer
@@ -9,7 +9,7 @@ from .agent_minmax import my_agent_binary_negmax, check_winner
 #from .agent_ppo2 import agent_theo
 from .model import User, Score
 from werkzeug.security import generate_password_hash
-
+from .submission import agent_rl
 # Create the game environment
 env = make("connectx", debug=True)
 # Training agent in first position (player 1) against the default random agent.
@@ -59,8 +59,8 @@ def newuser():
 @login_required
 def chose_options():
     # les options :
-    #dico_options = {"random":"random","MinMax":my_agent_binary_negmax,"Super Agent":agent_theo}
-    dico_options = {"random":"random","MinMax":my_agent_binary_negmax}
+    dico_options = {"random":"random","MinMax":my_agent_binary_negmax,"Agent rl":agent_rl}
+    #dico_options = {"random":"random","MinMax":my_agent_binary_negmax}
 
     #choisir les options de la partie
     form = options()

@@ -8,7 +8,7 @@ class options(FlaskForm):
     """[Form to choose options of the game]
     """
 
-    adversaire = SelectField(label="Adversaire", choices=[('random', 'random'),( "MinMax","MinMax"),("Super Agent","Super Agent")])
+    adversaire = SelectField(label="Adversaire", choices=[('random', 'random'),( "MinMax","MinMax"),("Super Agent","Super Agent"),("Agent rl","Agent rl")])
    
     submit = SubmitField(label="Valider")
 
