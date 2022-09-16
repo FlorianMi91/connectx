@@ -6,7 +6,7 @@ from kaggle_environments import make, evaluate
 from .form import options, LoginForm
 from .utils import check_valid_move, winner
 from .agent_minmax import my_agent_binary_negmax, check_winner
-#from .agent_ppo2 import agent_theo
+from .agent_ppo2 import agent_theo
 from .model import User, Score
 from werkzeug.security import generate_password_hash
 
@@ -59,8 +59,8 @@ def newuser():
 @login_required
 def chose_options():
     # les options :
-    #dico_options = {"random":"random","MinMax":my_agent_binary_negmax,"Super Agent":agent_theo}
-    dico_options = {"random":"random","MinMax":my_agent_binary_negmax}
+    dico_options = {"random":"random","MinMax":my_agent_binary_negmax,"Super Agent":agent_theo}
+    #dico_options = {"random":"random","MinMax":my_agent_binary_negmax}
 
     #choisir les options de la partie
     form = options()
@@ -110,7 +110,7 @@ def game():
 @login_required
 def winner():
     score = request.args.get('score')
-    if score[0]==1:
+    if score[0]=="1":
         winner = 1
         Score(pseudo = "puissance4", adversaire=env.__dict__['agents']['adversaire'],result=1).save_to_db()
     else:
