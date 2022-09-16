@@ -15,8 +15,7 @@ def check_valid_move(board,move):
         else:
             return True
 
-def winner(board):
-    '''
-    vérifie qui gagne
-    '''
-    return 1
+class set_trainer():
+    def __init__(self,env,adversaire):
+        self.train = env.train([None, adversaire])
+        self.type = adversaire
